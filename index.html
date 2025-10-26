@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KJSSE CGPA Calculator</title>
+    <!-- Website Icon -->
+    <link rel="icon" href="CGPAcalc-logo.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header & Formula Button -->
+    <header class="banner">
+      <h1>KJSSE CGPA Calculator</h1>
+      <button class="view-formula-button" onclick="openFormulaModal()">
+        View Formula
+      </button>
+    </header>
+
+    <main>
+      <!-- Branch and Semester Selection Screen -->
+      <div id="selectionScreen" class="selection-screen">
+        <div class="selection-container">
+          <h2>Select Your Branch and Semester</h2>
+
+          <div class="selection-form">
+            <!-- Branch dropdown list-->
+            <div class="form-group">
+              <label for="branchSelect">Branch</label>
+              <select id="branchSelect" class="select-input">
+                <option value="">Select Branch</option>
+                <option value="comp">Computer Engineering</option>
+                <option value="it">Information Technology</option>
+                <option value="aids">
+                  Artificial Intelligence & Data Science
+                </option>
+                <option value="csbs">
+                  Computer Science & Business Systems
+                </option>
+                <option value="cce">
+                  Computer & Communication Engineering
+                </option>
+                <option value="ece">Electronics & Computer Engineering</option>
+                <option value="extc">
+                  Electronics & Telecommunication Engineering
+                </option>
+                <option value="vlsi">VLSI Design & Technology</option>
+                <option value="rai">Robotics & Artificial Intelligence</option>
+                <option value="mech">Mechanical Engineering</option>
+              </select>
+            </div>
+
+            <!-- Semester dropdown list -->
+            <div class="form-group">
+              <label for="semesterSelect">Semester</label>
+              <select id="semesterSelect" class="select-input">
+                <option value="">Select Semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+              </select>
+            </div>
+
+            <!-- Proceed button -->
+            <div class="selection-actions">
+              <button class="proceed-button" onclick="proceedToCalculator()">
+                Proceed to Calculator
+              </button>
+            </div>
+
+            <!-- Error message -->
+            <div
+              id="selectionError"
+              class="error-message"
+              style="display: none"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculation Screen (Hidden initially) -->
+      <div
+        id="calculatorScreen"
+        class="calculator-screen"
+        style="display: none"
+      >
+        <!-- Shows current selection -->
+        <div class="breadcrumb">
+          <span id="breadcrumbText"></span>
+          <button class="change-selection-button" onclick="changeSelection()">
+            Change Selection
+          </button>
+        </div>
+
+        <!-- Instructions -->
+        <div class="info-box">
+          <p>
+            1. Enter marks for each subject and click "Calculate Subject
+            Pointer"
+          </p>
+          <p>2. Then click "Calculate Overall SGPA" to get overall SGPA</p>
+        </div>
+
+        <!-- Subject cards container -->
+        <div class="subjects-grid" id="subjectsGrid"></div>
+
+        <!-- Calculate overall SGPA button -->
+        <div class="calculate-sgpa-container">
+          <button
+            class="calculate-sgpa-button"
+            onclick="calculateOverallSGPA()"
+          >
+            Calculate Overall SGPA
+          </button>
+        </div>
+
+        <!-- Results display section -->
+        <div id="outputSection" class="output-section">
+          <div class="placeholder-text">
+            <h3>Your overall SGPA will appear here</h3>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <h3>
+        Made with ❤️ by
+        <a href="https://aravarun.xyz" style="text-decoration: underline"
+          >Arav Arun</a
+        >
+      </h3>
+    </footer>
+
+    <!-- Formula Modal -->
+    <div
+      id="formulaModal"
+      class="modal-overlay"
+      onclick="closeModalOnClickOutside(event)"
+    >
+      <div class="modal-content">
+        <button class="close-modal-button" onclick="closeFormulaModal()">
+          X
+        </button>
+
+        <h2>SGPA Calculation Guide</h2>
+
+        <!-- Grade conversion table -->
+        <div class="modal-section">
+          <h3>Grade Point Conversion Table:</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>% Marks</th>
+                <th>Grade Point</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>80% and above</td>
+                <td><strong>10</strong></td>
+                <td>O (Outstanding)</td>
+              </tr>
+              <tr>
+                <td>70% – 79%</td>
+                <td><strong>9</strong></td>
+                <td>A+ (Excellent)</td>
+              </tr>
+              <tr>
+                <td>60% – 69%</td>
+                <td><strong>8</strong></td>
+                <td>A (Very Good)</td>
+              </tr>
+              <tr>
+                <td>55% – 59%</td>
+                <td><strong>7</strong></td>
+                <td>B+ (Good)</td>
+              </tr>
+              <tr>
+                <td>50% – 54%</td>
+                <td><strong>6</strong></td>
+                <td>B (Above Average)</td>
+              </tr>
+              <tr>
+                <td>45% – 49%</td>
+                <td><strong>5</strong></td>
+                <td>C (Average)</td>
+              </tr>
+              <tr>
+                <td>40% – 44%</td>
+                <td><strong>4</strong></td>
+                <td>P (Pass)</td>
+              </tr>
+              <tr>
+                <td>Below 40%</td>
+                <td><strong>0</strong></td>
+                <td>F (Fail)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Calculation steps -->
+        <div class="modal-section">
+          <h3>Calculation Steps:</h3>
+
+          <div class="calculation-step">
+            <h4>Step 1: Calculate Total Marks</h4>
+            <code>Total = IA + MSE + ESE + Tutorial/Lab</code>
+            <p><strong>Example:</strong> 20 + 25 + 40 + 15 = 100 marks</p>
+          </div>
+
+          <div class="calculation-step">
+            <h4>Step 2: Calculate Percentage</h4>
+            <code>Percentage = (Total Marks / Highest Marks) × 100</code>
+            <p><strong>Example:</strong> (100 / 125) × 100 = 80%</p>
+          </div>
+
+          <div class="calculation-step">
+            <h4>Step 3: Find Grade Point</h4>
+            <code>Using the table above</code>
+            <p><strong>Example:</strong> 80% = Grade Point 10</p>
+          </div>
+
+          <div class="calculation-step">
+            <h4>Step 4: Calculate Credit Points</h4>
+            <code>Credit Points = Grade Point × Subject Credits</code>
+            <p><strong>Example:</strong> 10 × 4 = 40 credit points</p>
+          </div>
+
+          <div class="calculation-step highlight-step">
+            <h4>Final Step: Calculate SGPA</h4>
+            <code>SGPA = Total Credit Points / Total Credits</code>
+            <p><strong>Example:</strong> 200 / 22 = 9.09</p>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="modal-section">
+          <h3>Note:</h3>
+          <ul class="important-notes">
+            <li>You need at least 40% in each component to pass</li>
+            <li>60% of total credits needed in First Year</li>
+            <li>ESE and CA are separate passing heads for theory courses</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Files Load-->
+    <script src="data-config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
