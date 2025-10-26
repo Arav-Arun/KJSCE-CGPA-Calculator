@@ -108,7 +108,7 @@ function createOneSubjectCard(subject) {
       html + "<label>" + field.label + " (out of " + field.max + ")</label>";
     html = html + '<input type="number" ';
     html = html + 'id="s' + subject.id + "-" + field.name + '" ';
-    html = html + 'min="0" max="' + field.max + '" step="0.01" ';
+    html = html + 'min="0" max="' + field.max + '" step="1" ';
     html = html + 'placeholder="Enter marks">';
     html = html + "</div>";
 
@@ -124,7 +124,7 @@ function createOneSubjectCard(subject) {
     ")</label>";
   html = html + '<input type="number" ';
   html = html + 'id="s' + subject.id + '-highest" ';
-  html = html + 'min="0" step="0.01" ';
+  html = html + 'min="0" step="1" ';
   html =
     html +
     'placeholder="Leave blank to assume ' +
