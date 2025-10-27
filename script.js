@@ -124,7 +124,7 @@ function createOneSubjectCard(subject) {
     ")</label>";
   html = html + '<input type="number" ';
   html = html + 'id="s' + subject.id + '-highest" ';
-  html = html + 'min="0" step="1" ';
+  html = html + 'min="0" max="' + subject.defaultHighest + '" step="1" ';
   html =
     html +
     'placeholder="Leave blank to assume ' +
@@ -235,6 +235,17 @@ function calculateSubject(subjectId) {
   let highest = parseFloat(highestInput.value);
   if (isNaN(highest) || highest === 0) {
     highest = subject.defaultHighest;
+  }
+
+  // Validate highest marks doesn't exceed default maximum
+  if (highest > subject.defaultHighest) {
+    resultDiv.innerHTML =
+      "<strong style='color: #ff6b6b;'>Highest marks cannot exceed " +
+      subject.defaultHighest +
+      " !</strong>";
+    resultDiv.style.display = "block";
+    gradePoints[subjectId] = 0;
+    return;
   }
 
   // Calculate percentage
