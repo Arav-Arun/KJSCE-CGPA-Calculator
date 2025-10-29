@@ -1,4 +1,4 @@
-# 🎓 KJSCE CGPA Calculator
+# 🎓 KJSSE CGPA Calculator
 
 ![KJSCE CGPA Calculator Logo](./banner.png)
 
