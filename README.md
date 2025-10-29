@@ -41,6 +41,6 @@ It is **not affiliated with KJSSE**, and results are **approximate** — intende
 
 ---
 
-<p align="center">
+<!-- <p align="center">
   <sub>A project by <b>Arav Arun</b></sub>
-</p>
+</p> -->
