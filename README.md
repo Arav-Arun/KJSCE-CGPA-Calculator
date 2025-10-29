@@ -2,7 +2,7 @@
 
 ![KJSCE CGPA Calculator Logo](./banner.png)
 
-A **minimal**, **intuitive**, and **responsive** web-based calculator built to help **KJSCE students** easily compute their **CGPA** and **SGPA** based on semester grades and credits.
+A **minimal**, **intuitive**, and **responsive** web-based calculator built to help **KJSSE students** easily compute their **CGPA** and **SGPA** based on semester grades and credits.
 
 ---
 
@@ -10,11 +10,6 @@ A **minimal**, **intuitive**, and **responsive** web-based calculator built to h
 
 - 🎯 **SGPA & CGPA Calculation** — Accurate computation based on the university’s credit structure.  
 - 🧮 **Formula Explanation Modal** — View the exact method used for transparency.  
-- 📱 **Responsive Design** — Optimized for both mobile and desktop screens.  
-- 💡 **Interactive UI** — Dynamic input fields for marks and credits.  
-- 🌙 **Modern Dark Theme** — Styled with a clean palette of  
-  - Dark: `#1e1e1e`  
-  - Mint Green: `#d6f8e0`
 
 ---
 
@@ -41,8 +36,8 @@ A **minimal**, **intuitive**, and **responsive** web-based calculator built to h
 
 ## ⚠️ Disclaimer
 
-This is a **personal project** by *Arav Arun*.  
-It is **not affiliated with KJSCE**, and results are **approximate** — intended for **reference and guidance only**.
+This is a **personal project** by me.  
+It is **not affiliated with KJSSE**, and results are **approximate** — intended for **reference and guidance only**.
 
 ---
 
