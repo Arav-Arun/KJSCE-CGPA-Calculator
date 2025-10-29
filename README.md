@@ -6,14 +6,14 @@ A **minimal**, **intuitive**, and **responsive** web-based calculator built to h
 
 ---
 
-## ✨ Features
+## Features :
 
-- 🎯 **SGPA & CGPA Calculation** — Accurate computation based on the university’s credit structure.  
-- 🧮 **Formula Explanation Modal** — View the exact method used for transparency.  
+- **SGPA & CGPA Calculation** — Accurate computation based on the university’s credit structure.  
+- **Formula Explanation Modal** — View the exact method used for transparency.  
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack :
 
 - **Frontend:** HTML, CSS, JavaScript  
 - **Hosting:** [Vercel](https://kjsce-cgpa-calculator.vercel.app)  
@@ -21,20 +21,20 @@ A **minimal**, **intuitive**, and **responsive** web-based calculator built to h
 
 ---
 
-## 🚀 Future Updates
+## Future Updates :
 
-- 🧾 **Basket Course Support:**  
+- **Basket Course Support:**  
   Implement accurate credit and marking logic for elective/basket courses.  
 
-- 🧑‍💻 **Branch-Specific SGPA Calculator:**  
+- **Branch-Specific SGPA Calculator:**  
   Add SGPA calculation for upcoming semesters tailored to each branch’s structure.  
 
-- 📊 **Overall CGPA Tracker:**  
+- **Overall CGPA Tracker:**  
   Introduce an overall CGPA calculator aggregating results across all semesters.  
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer :
 
 This is a **personal project** by me.  
 It is **not affiliated with KJSSE**, and results are **approximate** — intended for **reference and guidance only**.
@@ -42,5 +42,5 @@ It is **not affiliated with KJSSE**, and results are **approximate** — intende
 ---
 
 <p align="center">
-  <sub>💻 A project by <b>Arav Arun</b></sub>
+  <sub>A project by <b>Arav Arun</b></sub>
 </p>
