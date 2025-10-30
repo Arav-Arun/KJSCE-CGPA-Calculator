@@ -207,35 +207,42 @@
         </div>
 
         <!-- Calculation steps -->
+        <!-- Calculation steps -->
         <div class="modal-section">
           <h3>Calculation Steps:</h3>
 
           <div class="calculation-step">
-            <h4>Step 1: Calculate Total Marks</h4>
-            <code>Total = IA + MSE + ESE + Tutorial/Lab</code>
-            <p><strong>Example:</strong> 20 + 25 + 40 + 15 = 100 marks</p>
+            <h4>For Theory Subjects (with IA, MSE, ESE):</h4>
+            <code>Step 1: Total = IA + MSE + ESE</code>
+            <p><strong>Example:</strong> 18 + 25 + 42 = 85 marks</p>
+
+            <code>Step 2: Percentage = (Total / Highest Marks) × 100</code>
+            <p><strong>Example:</strong> (85 / 100) × 100 = 85%</p>
+
+            <code>Step 3: Grade Point = Based on percentage (see table)</code>
+            <p><strong>Example:</strong> 85% = Grade Point 10</p>
           </div>
 
           <div class="calculation-step">
-            <h4>Step 2: Calculate Percentage</h4>
-            <code>Percentage = (Total Marks / Highest Marks) × 100</code>
-            <p><strong>Example:</strong> (100 / 125) × 100 = 80%</p>
+            <h4>For Tutorial/Lab Subjects (CA or Lab marks only):</h4>
+            <code>Step 1: Total = CA or Lab marks</code>
+            <p><strong>Example:</strong> 45 out of 50</p>
+
+            <code>Step 2: Percentage = (Total / Highest Marks) × 100</code>
+            <p><strong>Example:</strong> (45 / 50) × 100 = 90%</p>
+
+            <code>Step 3: Grade Point = Based on percentage (see table)</code>
+            <p><strong>Example:</strong> 90% = Grade Point 10</p>
           </div>
 
           <div class="calculation-step">
-            <h4>Step 3: Find Grade Point</h4>
-            <code>Using the table above</code>
-            <p><strong>Example:</strong> 80% = Grade Point 10</p>
-          </div>
-
-          <div class="calculation-step">
-            <h4>Step 4: Calculate Credit Points</h4>
+            <h4>Calculate Credit Points for Each Subject:</h4>
             <code>Credit Points = Grade Point × Subject Credits</code>
             <p><strong>Example:</strong> 10 × 4 = 40 credit points</p>
           </div>
 
           <div class="calculation-step highlight-step">
-            <h4>Final Step: Calculate SGPA</h4>
+            <h4>Final Step: Calculate Overall SGPA</h4>
             <code>SGPA = Total Credit Points / Total Credits</code>
             <p><strong>Example:</strong> 200 / 22 = 9.09</p>
           </div>
