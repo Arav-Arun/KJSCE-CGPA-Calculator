@@ -1,4 +1,4 @@
-// Subject data for Semester 1 (common for all branches)
+// Subject data for Semester 1 (common for all branches - Batch 2025-2029)
 const semester1Subjects = [
   {
     id: 1,
@@ -109,19 +109,126 @@ const semester1Subjects = [
   },
 ];
 
-// I will add data for future semesters and branches as and when details are available.
-// Example: const semester2Subjects = [...];
+// Semester 3 subjects for Computer Engineering - Batch 2024-2028
+const semester3Subjects_COMP_2024 = [
+  {
+    id: 301,
+    name: "Integral Transforms and Vector Calculus",
+    credits: 4,
+    fields: [
+      { name: "tutorial", label: "Tutorial CA", max: 25 },
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 125,
+  },
+  {
+    id: 302,
+    name: "Data Structures",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 303,
+    name: "Object Oriented Programming Methodology",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 304,
+    name: "Computer Organization & Architecture",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 305,
+    name: "Discrete Mathematics",
+    credits: 4,
+    fields: [
+      { name: "tutorial", label: "Tutorial CA", max: 25 },
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 125,
+  },
+  {
+    id: 306,
+    name: "Indian Knowledge System",
+    credits: 2,
+    fields: [{ name: "ca", label: "Continuous Assessment (CA)", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 307,
+    name: "Digital Design Laboratory",
+    credits: 2,
+    fields: [
+      { name: "lab", label: "Lab CA", max: 50 },
+      { name: "tutorial", label: "Tutorial CA", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 308,
+    name: "Data Structures Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 309,
+    name: "Object Oriented Programming Methodology Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 310,
+    name: "Computer Organization & Architecture Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+];
 
-// Get subjects for a branch and semester
-function getSubjects(branchId, semesterId) {
-  // Semester 1 is common for all branches
-  if (semesterId === 1) {
-    return semester1Subjects;
+// Get subjects for a branch, semester, and batch
+function getSubjects(branchId, semesterId, batchId) {
+  // Batch 2025-2029
+  if (batchId === "2025-2029") {
+    if (semesterId === 1) {
+      return semester1Subjects;
+    }
   }
 
-  // I will add other semester data here when available.
-  //For ex :  if (semesterId === 2) return semester2Subjects;
-  // if (semesterId === 3) return semester3Subjects;
+  // Batch 2024-2028
+  if (batchId === "2024-2028") {
+    if (semesterId === 3) {
+      if (branchId === "comp") {
+        return semester3Subjects_COMP_2024;
+      } else {
+        // Data not available for other branches yet
+        return null;
+      }
+    }
+  }
 
-  return null; // Data not available
+  // Data not available for other semesters/batches yet
+  return null;
 }

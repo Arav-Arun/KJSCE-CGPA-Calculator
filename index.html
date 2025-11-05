@@ -18,12 +18,22 @@
     </header>
 
     <main>
-      <!-- Branch and Semester Selection Screen -->
+      <!-- Branch, Batch and Semester Selection Screen -->
       <div id="selectionScreen" class="selection-screen">
         <div class="selection-container">
-          <h2>Select Your Branch and Semester</h2>
+          <h2>Select Your Batch, Branch and Semester</h2>
 
           <div class="selection-form">
+            <!-- Batch dropdown list-->
+            <div class="form-group">
+              <label for="batchSelect">Batch</label>
+              <select id="batchSelect" class="select-input">
+                <option value="">Select Batch</option>
+                <option value="2025-2029">2025-2029</option>
+                <option value="2024-2028">2024-2028</option>
+              </select>
+            </div>
+
             <!-- Branch dropdown list-->
             <div class="form-group">
               <label for="branchSelect">Branch</label>
@@ -206,7 +216,6 @@
           </table>
         </div>
 
-        <!-- Calculation steps -->
         <!-- Calculation steps -->
         <div class="modal-section">
           <h3>Calculation Steps:</h3>

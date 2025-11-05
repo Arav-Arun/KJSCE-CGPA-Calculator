@@ -1,8 +1,9 @@
 // Store current selections
 let selectedBranch = null;
 let selectedSemester = null;
-let currentSubjects = []; // Store subjects for current selection
-let gradePoints = {}; // Store calculated grade points
+let selectedBatch = null;
+let currentSubjects = [];
+let gradePoints = {};
 
 const branchNames = {
   aids: "Artificial Intelligence & Data Science",
@@ -19,11 +20,19 @@ const branchNames = {
 
 // When user clicks "Proceed to Calculator"
 function proceedToCalculator() {
+  const batchDropdown = document.getElementById("batchSelect");
   const branchDropdown = document.getElementById("branchSelect");
   const semesterDropdown = document.getElementById("semesterSelect");
 
+  const batchId = batchDropdown.value;
   const branchId = branchDropdown.value;
   const semesterId = parseInt(semesterDropdown.value);
+
+  // Check if batch is selected
+  if (batchId === "") {
+    showError("Please select a batch");
+    return;
+  }
 
   // Check if branch is selected
   if (branchId === "") {
@@ -37,14 +46,15 @@ function proceedToCalculator() {
     return;
   }
 
-  // Check is examination and credits data is available for given semester
-  const subjects = getSubjects(branchId, semesterId);
+  // Check if examination and credits data is available for given combination
+  const subjects = getSubjects(branchId, semesterId, batchId);
   if (subjects === null) {
-    showError("Data for the selected semester is not available yet");
+    showError("Data for the selected combination is not available yet");
     return;
   }
 
   // Save selections
+  selectedBatch = batchId;
   selectedBranch = branchId;
   selectedSemester = semesterId;
   currentSubjects = subjects;
@@ -54,10 +64,15 @@ function proceedToCalculator() {
   document.getElementById("selectionScreen").style.display = "none";
   document.getElementById("calculatorScreen").style.display = "block";
 
-  // Update BackNav to selection screen breadcrumb text
+  // Update breadcrumb text
   const breadcrumbText = document.getElementById("breadcrumbText");
   breadcrumbText.textContent =
-    branchNames[branchId] + " - Semester " + semesterId;
+    "Batch " +
+    batchId +
+    " | " +
+    branchNames[branchId] +
+    " | Semester " +
+    semesterId;
 
   // Create subject cards
   createSubjectCards();
@@ -145,7 +160,7 @@ function createOneSubjectCard(subject) {
   return html;
 }
 
-//percentage to grade point conversion
+// Percentage to grade point conversion
 function getGradePoint(percentage) {
   if (percentage >= 80) {
     return 10;
@@ -330,7 +345,7 @@ function calculateOverallSGPA() {
   let subjectIndex = 0;
   while (subjectIndex < currentSubjects.length) {
     const subject = currentSubjects[subjectIndex];
-    const gp = gradePoints[subject.id];
+    let gp = gradePoints[subject.id];
     if (gp === undefined) {
       gp = 0;
     }
@@ -342,7 +357,7 @@ function calculateOverallSGPA() {
   // Calculate SGPA
   const sgpa = totalCreditPoints / totalCredits;
 
-  //output HTML
+  // Output HTML
   let output = "";
   output = output + '<div class="sgpa-display">';
   output = output + '<div class="label">Overall SGPA:</div>';
@@ -384,7 +399,7 @@ function calculateOverallSGPA() {
   output = output + "<strong>SGPA:</strong> " + sgpa.toFixed(2);
   output = output + "</div>";
 
-  //Display output
+  // Display output
   document.getElementById("outputSection").innerHTML = output;
   document
     .getElementById("outputSection")
@@ -394,6 +409,7 @@ function calculateOverallSGPA() {
 // Back to selection screen
 function changeSelection() {
   // Reset everything
+  selectedBatch = null;
   selectedBranch = null;
   selectedSemester = null;
   currentSubjects = [];
@@ -405,6 +421,7 @@ function changeSelection() {
     '<div class="placeholder-text"><h3>Your overall SGPA will appear here</h3></div>';
 
   // Reset dropdowns
+  document.getElementById("batchSelect").value = "";
   document.getElementById("branchSelect").value = "";
   document.getElementById("semesterSelect").value = "";
 
