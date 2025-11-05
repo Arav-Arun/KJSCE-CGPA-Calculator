@@ -113,15 +113,21 @@ const semester1Subjects = [
 const semester3Subjects_COMP_2024 = [
   {
     id: 301,
-    name: "Integral Transforms and Vector Calculus",
-    credits: 4,
+    name: "Integral Transforms and Vector Calculus - Theory",
+    credits: 3,
     fields: [
-      { name: "tutorial", label: "Tutorial CA", max: 25 },
       { name: "ia", label: "Internal Assessment (IA)", max: 20 },
       { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
       { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
     ],
-    defaultHighest: 125,
+    defaultHighest: 100,
+  },
+  {
+    id: 3011,
+    name: "Integral Transforms and Vector Calculus - Tutorial",
+    credits: 1,
+    fields: [{ name: "tutorial", label: "Tutorial CA", max: 25 }],
+    defaultHighest: 25,
   },
   {
     id: 302,
@@ -158,15 +164,21 @@ const semester3Subjects_COMP_2024 = [
   },
   {
     id: 305,
-    name: "Discrete Mathematics",
-    credits: 4,
+    name: "Discrete Mathematics - Theory",
+    credits: 3,
     fields: [
-      { name: "tutorial", label: "Tutorial CA", max: 25 },
       { name: "ia", label: "Internal Assessment (IA)", max: 20 },
       { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
       { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
     ],
-    defaultHighest: 125,
+    defaultHighest: 100,
+  },
+  {
+    id: 3051,
+    name: "Discrete Mathematics - Tutorial",
+    credits: 1,
+    fields: [{ name: "tutorial", label: "Tutorial CA", max: 25 }],
+    defaultHighest: 25,
   },
   {
     id: 306,
