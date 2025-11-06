@@ -51,7 +51,6 @@ main {
 
 /* Selection Screen */
 .selection-screen {
-  /* min-height: 400px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,6 +116,9 @@ main {
 
 .selection-actions {
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .proceed-button {
@@ -133,6 +135,40 @@ main {
 
 .proceed-button:hover {
   background-color: #c5e7cf;
+}
+
+.cgpa-calculator-button {
+  width: 100%;
+  background-color: transparent;
+  color: #d6f8e0;
+  border: 2px solid #d6f8e0;
+  padding: 15px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.cgpa-calculator-button:hover {
+  background-color: #d6f8e0;
+  color: #1e1e1e;
+}
+
+.cgpa-calculator-button-small {
+  background-color: transparent;
+  color: #d6f8e0;
+  border: 1px solid #d6f8e0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.cgpa-calculator-button-small:hover {
+  background-color: #d6f8e0;
+  color: #1e1e1e;
 }
 
 .error-message {
@@ -168,12 +204,19 @@ main {
   justify-content: space-between;
   align-items: center;
   border: 1px solid #d6f8e0;
+  gap: 15px;
 }
 
 .breadcrumb span {
   color: #d6f8e0;
   font-size: 16px;
   font-weight: bold;
+}
+
+.breadcrumb-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .change-selection-button {
@@ -185,6 +228,7 @@ main {
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .change-selection-button:hover {
@@ -228,6 +272,29 @@ main {
   min-height: 48px;
   display: flex;
   align-items: center;
+}
+
+/* CGPA Calculator Grid */
+.cgpa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.cgpa-card {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #3a3a3a;
+}
+
+.cgpa-card h3 {
+  color: #d6f8e0;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #d6f8e0;
+  font-size: 18px;
 }
 
 /* Input groups */
@@ -331,7 +398,7 @@ main {
   font-size: 22px;
 }
 
-/* SGPA display */
+/* SGPA/CGPA display */
 .sgpa-display {
   text-align: center;
   margin: 20px 0;
@@ -542,6 +609,10 @@ th {
     grid-template-columns: 1fr;
   }
 
+  .cgpa-grid {
+    grid-template-columns: 1fr;
+  }
+
   .modal-content {
     padding: 20px;
   }
@@ -556,7 +627,13 @@ th {
     text-align: center;
   }
 
-  .change-selection-button {
+  .breadcrumb-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .change-selection-button,
+  .cgpa-calculator-button-small {
     width: 100%;
   }
 }

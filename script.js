@@ -18,7 +18,7 @@ const branchNames = {
   rai: "Robotics & Artificial Intelligence",
 };
 
-// When user clicks "Proceed to Calculator"
+// When user clicks "Proceed to SGPA Calculator"
 function proceedToCalculator() {
   const batchDropdown = document.getElementById("batchSelect");
   const branchDropdown = document.getElementById("branchSelect");
@@ -63,6 +63,7 @@ function proceedToCalculator() {
   // Hide selection screen and show calculator screen
   document.getElementById("selectionScreen").style.display = "none";
   document.getElementById("calculatorScreen").style.display = "block";
+  document.getElementById("cgpaCalculatorScreen").style.display = "none";
 
   // Update breadcrumb text
   const breadcrumbText = document.getElementById("breadcrumbText");
@@ -76,6 +77,18 @@ function proceedToCalculator() {
 
   // Create subject cards
   createSubjectCards();
+}
+
+// When user clicks "Calculate Overall CGPA"
+function proceedToCGPACalculator() {
+  // Hide other screens and show CGPA calculator screen
+  document.getElementById("selectionScreen").style.display = "none";
+  document.getElementById("calculatorScreen").style.display = "none";
+  document.getElementById("cgpaCalculatorScreen").style.display = "block";
+
+  // Reset CGPA output
+  document.getElementById("cgpaOutputSection").innerHTML =
+    '<div class="placeholder-text"><h3>Your overall CGPA will appear here</h3></div>';
 }
 
 // Show error message on selection screen
@@ -406,6 +419,127 @@ function calculateOverallSGPA() {
     .scrollIntoView({ behavior: "smooth" });
 }
 
+// Calculate overall CGPA
+function calculateCGPA() {
+  let totalCreditPoints = 0;
+  let totalCredits = 0;
+  let semestersEntered = 0;
+
+  // Loop through all 8 semesters
+  let sem = 1;
+  while (sem <= 8) {
+    const sgpaInput = document.getElementById("sgpa" + sem);
+    const creditsInput = document.getElementById("credits" + sem);
+
+    const sgpaValue = parseFloat(sgpaInput.value);
+    const creditsValue = parseFloat(creditsInput.value);
+
+    // If both SGPA and credits are entered for this semester
+    if (
+      !isNaN(sgpaValue) &&
+      !isNaN(creditsValue) &&
+      sgpaValue > 0 &&
+      creditsValue > 0
+    ) {
+      // Validate SGPA is between 0 and 10
+      if (sgpaValue > 10) {
+        const outputSection = document.getElementById("cgpaOutputSection");
+        outputSection.innerHTML = '<div class="placeholder-text">';
+        outputSection.innerHTML =
+          outputSection.innerHTML +
+          '<h3 style="color: #ff6b6b;">SGPA for Semester ' +
+          sem +
+          " cannot exceed 10!</h3>";
+        outputSection.innerHTML = outputSection.innerHTML + "</div>";
+        return;
+      }
+
+      totalCreditPoints = totalCreditPoints + sgpaValue * creditsValue;
+      totalCredits = totalCredits + creditsValue;
+      semestersEntered = semestersEntered + 1;
+    }
+
+    sem = sem + 1;
+  }
+
+  // Check if at least one semester is entered
+  if (semestersEntered === 0) {
+    const outputSection = document.getElementById("cgpaOutputSection");
+    outputSection.innerHTML = '<div class="placeholder-text">';
+    outputSection.innerHTML =
+      outputSection.innerHTML +
+      '<h3 style="color: #ff6b6b;">Please enter data for at least one semester!</h3>';
+    outputSection.innerHTML = outputSection.innerHTML + "</div>";
+    return;
+  }
+
+  // Calculate CGPA
+  const cgpa = totalCreditPoints / totalCredits;
+
+  // Build output HTML
+  let output = "";
+  output = output + '<div class="sgpa-display">';
+  output = output + '<div class="label">Overall CGPA:</div>';
+  output = output + '<div class="value">' + cgpa.toFixed(2) + "</div>";
+  output = output + "</div>";
+
+  output = output + '<h4 class="breakdown-title">Semester Breakdown:</h4>';
+  output = output + '<ul class="breakdown-list">';
+
+  // Add each semester's breakdown
+  let s = 1;
+  while (s <= 8) {
+    const sgpaInput = document.getElementById("sgpa" + s);
+    const creditsInput = document.getElementById("credits" + s);
+
+    const sgpaValue = parseFloat(sgpaInput.value);
+    const creditsValue = parseFloat(creditsInput.value);
+
+    if (
+      !isNaN(sgpaValue) &&
+      !isNaN(creditsValue) &&
+      sgpaValue > 0 &&
+      creditsValue > 0
+    ) {
+      const creditPoints = sgpaValue * creditsValue;
+
+      output = output + "<li>";
+      output = output + "<strong>Semester " + s + "</strong><br>";
+      output =
+        output +
+        "SGPA: " +
+        sgpaValue.toFixed(2) +
+        " × Credits: " +
+        creditsValue;
+      output = output + " = " + creditPoints.toFixed(2) + " points";
+      output = output + "</li>";
+    }
+
+    s = s + 1;
+  }
+
+  output = output + "</ul>";
+
+  // Add summary
+  output = output + '<div class="summary-box">';
+  output =
+    output +
+    "<strong>Total Credit Points:</strong> " +
+    totalCreditPoints.toFixed(2) +
+    " | ";
+  output = output + "<strong>Total Credits:</strong> " + totalCredits + " | ";
+  output =
+    output + "<strong>Semesters Included:</strong> " + semestersEntered + " | ";
+  output = output + "<strong>CGPA:</strong> " + cgpa.toFixed(2);
+  output = output + "</div>";
+
+  // Display output
+  document.getElementById("cgpaOutputSection").innerHTML = output;
+  document
+    .getElementById("cgpaOutputSection")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
 // Back to selection screen
 function changeSelection() {
   // Reset everything
@@ -420,14 +554,25 @@ function changeSelection() {
   document.getElementById("outputSection").innerHTML =
     '<div class="placeholder-text"><h3>Your overall SGPA will appear here</h3></div>';
 
+  // Clear CGPA calculator
+  let sem = 1;
+  while (sem <= 8) {
+    document.getElementById("sgpa" + sem).value = "";
+    document.getElementById("credits" + sem).value = "";
+    sem = sem + 1;
+  }
+  document.getElementById("cgpaOutputSection").innerHTML =
+    '<div class="placeholder-text"><h3>Your overall CGPA will appear here</h3></div>';
+
   // Reset dropdowns
   document.getElementById("batchSelect").value = "";
   document.getElementById("branchSelect").value = "";
   document.getElementById("semesterSelect").value = "";
 
-  // Show selection screen, hide calculator
+  // Show selection screen, hide calculators
   document.getElementById("selectionScreen").style.display = "flex";
   document.getElementById("calculatorScreen").style.display = "none";
+  document.getElementById("cgpaCalculatorScreen").style.display = "none";
 }
 
 // Open formula modal
