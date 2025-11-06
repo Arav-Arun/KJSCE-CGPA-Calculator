@@ -29,9 +29,6 @@ A **minimal**, **intuitive**, and **responsive** web-based calculator built to h
 - **Branch-Specific SGPA Calculator:**  
   Add SGPA calculation for upcoming semesters tailored to each branch’s structure.  
 
-- **Overall CGPA Tracker:**  
-  Introduce an overall CGPA calculator aggregating results across all semesters.  
-
 ---
 
 ## Disclaimer :
