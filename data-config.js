@@ -2,7 +2,7 @@
 const semester1Subjects = [
   {
     id: 1,
-    name: "Applied Mathematics – I Theory",
+    name: "Applied Mathematics – I (Theory)",
     credits: 3,
     fields: [
       { name: "ia", label: "Internal Assessment (IA)", max: 20 },
@@ -13,7 +13,7 @@ const semester1Subjects = [
   },
   {
     id: 2,
-    name: "Applied Mathematics – I Tutorial",
+    name: "Applied Mathematics – I (Tutorial)",
     credits: 1,
     fields: [{ name: "tutorial", label: "Tutorial CA", max: 25 }],
     defaultHighest: 25,
@@ -113,7 +113,7 @@ const semester1Subjects = [
 const semester3Subjects_COMP_2024 = [
   {
     id: 301,
-    name: "Integral Transforms and Vector Calculus - Theory",
+    name: "Integral Transforms and Vector Calculus (Theory)",
     credits: 3,
     fields: [
       { name: "ia", label: "Internal Assessment (IA)", max: 20 },
@@ -123,8 +123,8 @@ const semester3Subjects_COMP_2024 = [
     defaultHighest: 100,
   },
   {
-    id: 3011,
-    name: "Integral Transforms and Vector Calculus - Tutorial",
+    id: 311,
+    name: "Integral Transforms and Vector Calculus (Tutorial)",
     credits: 1,
     fields: [{ name: "tutorial", label: "Tutorial CA", max: 25 }],
     defaultHighest: 25,
@@ -164,7 +164,7 @@ const semester3Subjects_COMP_2024 = [
   },
   {
     id: 305,
-    name: "Discrete Mathematics - Theory",
+    name: "Discrete Mathematics (Theory)",
     credits: 3,
     fields: [
       { name: "ia", label: "Internal Assessment (IA)", max: 20 },
@@ -174,8 +174,8 @@ const semester3Subjects_COMP_2024 = [
     defaultHighest: 100,
   },
   {
-    id: 3051,
-    name: "Discrete Mathematics - Tutorial",
+    id: 312,
+    name: "Discrete Mathematics (Tutorial)",
     credits: 1,
     fields: [{ name: "tutorial", label: "Tutorial CA", max: 25 }],
     defaultHighest: 25,
@@ -191,11 +191,8 @@ const semester3Subjects_COMP_2024 = [
     id: 307,
     name: "Digital Design Laboratory",
     credits: 2,
-    fields: [
-      { name: "lab", label: "Lab CA", max: 50 },
-      { name: "tutorial", label: "Tutorial CA", max: 50 },
-    ],
-    defaultHighest: 100,
+    fields: [{ name: "lab", label: "Lab/TUT CA", max: 50 }],
+    defaultHighest: 50,
   },
   {
     id: 308,
