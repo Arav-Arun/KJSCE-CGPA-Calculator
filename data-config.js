@@ -1,3 +1,5 @@
+// ========== COMPLETE UPDATED DATA-CONFIG.JS FILE ==========
+
 // Subject data for Semester 1 (common for all branches - Batch 2025-2029)
 const semester1Subjects = [
   {
@@ -217,6 +219,114 @@ const semester3Subjects_COMP_2024 = [
   },
 ];
 
+// Semester 3 subjects for Robotics and AI - Batch 2024-2028
+const semester3Subjects_RAI_2024 = [
+  {
+    id: 301,
+    name: "Calculus, Transforms and Optimization (Theory)",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 311,
+    name: "Calculus, Transforms and Optimization (Tutorial)",
+    credits: 1,
+    fields: [{ name: "tutorial", label: "Tutorial CA", max: 25 }],
+    defaultHighest: 25,
+  },
+  {
+    id: 302,
+    name: "Strength of Materials",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 303,
+    name: "Data Structures and Algorithms",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 304,
+    name: "Hydraulic and Pneumatic Systems",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 305,
+    name: "Manufacturing Processes",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 306,
+    name: "Indian Knowledge System",
+    credits: 2,
+    fields: [{ name: "ca", label: "Continuous Assessment (CA)", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 307,
+    name: "Modelling and Simulation Laboratory",
+    credits: 2,
+    fields: [{ name: "lab", label: "Lab/TUT CA", max: 75 }],
+    defaultHighest: 75,
+  },
+  {
+    id: 308,
+    name: "Strength of Materials Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 309,
+    name: "Data Structures and Algorithms Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 310,
+    name: "Hydraulic and Pneumatic Systems Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 312,
+    name: "Manufacturing Processes Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+];
+
 // Get subjects for a branch, semester, and batch
 function getSubjects(branchId, semesterId, batchId) {
   // Batch 2025-2029
@@ -231,6 +341,8 @@ function getSubjects(branchId, semesterId, batchId) {
     if (semesterId === 3) {
       if (branchId === "comp") {
         return semester3Subjects_COMP_2024;
+      } else if (branchId === "rai") {
+        return semester3Subjects_RAI_2024;
       } else {
         // Data not available for other branches yet
         return null;
