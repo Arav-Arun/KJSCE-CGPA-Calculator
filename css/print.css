@@ -27,6 +27,11 @@
   display: none;
 }
 
+/**
+ * Print Stylesheet
+ * Defines styles for printing reports, hiding non-printable elements, and formatting print layouts.
+ */
+
 @media print {
   /* Hide everything by default */
   body > * {

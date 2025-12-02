@@ -8,8 +8,28 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #1e1e1e;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
   color: white;
   padding: 20px;
+  min-height: 100vh;
+}
+
+.body-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-card {
+  width: 100%;
+  max-width: 800px;
+  background-color: #2a2a2a;
+  border: 1px solid #d6f8e0;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Header */
@@ -21,6 +41,15 @@ header {
   margin: 0 auto 20px;
   border-radius: 16px;
   border: 1px solid #d6f8e0;
+}
+
+.main-card header {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #d6f8e0;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 0 0 20px 0;
 }
 
 header h1 {
@@ -45,6 +74,7 @@ header h1 {
 
 /* Main content container */
 main {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -65,6 +95,12 @@ main {
   border: 1px solid #d6f8e0;
   max-width: 600px;
   width: 100%;
+}
+
+.main-card .selection-container {
+  background-color: transparent;
+  border: none;
+  padding: 20px;
 }
 
 .selection-container h2 {
@@ -457,6 +493,15 @@ footer {
   border: 1px solid #d6f8e0;
 }
 
+.main-card footer {
+  background-color: transparent;
+  border: none;
+  border-top: 1px solid #d6f8e0;
+  margin-top: 0;
+  border-radius: 0;
+  padding: 20px 0 0 0;
+}
+
 footer a {
   color: #d6f8e0;
   text-decoration: none;
@@ -650,6 +695,65 @@ th {
 
 /* Mobile responsive adjustment */
 @media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .main-card {
+    padding: 20px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 15px;
+  }
+
+  .banner h1 {
+    font-size: 24px;
+  }
+
+  .view-formula-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .selection-form {
+    padding: 15px;
+  }
+
+  .subjects-grid {
+    grid-template-columns: 1fr; /* Stack cards on mobile */
+  }
+
+  .cgpa-grid {
+    grid-template-columns: 1fr; /* Stack cards on mobile */
+  }
+
+  .subject-card,
+  .cgpa-card {
+    padding: 15px;
+  }
+
+  .input-group input {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .calculate-sgpa-button,
+  .proceed-button,
+  .cgpa-calculator-button {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .breadcrumb {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .breadcrumb-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
   header h1 {
     font-size: 22px;
   }

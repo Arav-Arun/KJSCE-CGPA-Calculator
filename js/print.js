@@ -1,3 +1,8 @@
+/**
+ * Print Functionality
+ * Handles generating and printing SGPA and CGPA reports.
+ */
+
 // --- Print Functions ---
 
 function printResult() {
@@ -87,7 +92,7 @@ function printResult() {
     setTimeout(() => {
       printArea.classList.remove("printable");
     }, 500);
-  }, 100);
+  }, 500);
 }
 
 function printOverallResult() {
@@ -148,8 +153,11 @@ function printOverallResult() {
   // Delay print to ensure DOM updates are rendered
   setTimeout(() => {
     window.print();
+    // Remove class after print dialog closes (or a reasonable timeout)
+    // Note: On mobile, print might be async, so we can't perfectly detect close.
+    // But keeping it printable for a moment is fine.
     setTimeout(() => {
       printArea.classList.remove("printable");
     }, 500);
-  }, 100);
+  }, 500);
 }

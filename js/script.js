@@ -1,3 +1,8 @@
+/**
+ * Main Script for KJSSE CGPA Calculator
+ * Handles UI interactions, calculations, and state management.
+ */
+
 // Store current selections
 let selectedBranch = null;
 let selectedSemester = null;
@@ -65,6 +70,10 @@ function proceedToCalculator() {
   document.getElementById("calculatorScreen").style.display = "block";
   document.getElementById("cgpaCalculatorScreen").style.display = "none";
 
+  // Remove main-card class for calculator view
+  document.getElementById("app-container").classList.remove("main-card");
+  document.body.classList.remove("body-centered");
+
   // Update breadcrumb text
   const breadcrumbText = document.getElementById("breadcrumbText");
   breadcrumbText.textContent =
@@ -85,6 +94,10 @@ function proceedToCGPACalculator() {
   document.getElementById("selectionScreen").style.display = "none";
   document.getElementById("calculatorScreen").style.display = "none";
   document.getElementById("cgpaCalculatorScreen").style.display = "block";
+
+  // Remove main-card class for calculator view
+  document.getElementById("app-container").classList.remove("main-card");
+  document.body.classList.remove("body-centered");
 
   // Reset CGPA output
   document.getElementById("cgpaOutputSection").innerHTML =
@@ -599,6 +612,10 @@ function changeSelection() {
   document.getElementById("selectionScreen").style.display = "flex";
   document.getElementById("calculatorScreen").style.display = "none";
   document.getElementById("cgpaCalculatorScreen").style.display = "none";
+
+  // Add main-card class for selection view
+  document.getElementById("app-container").classList.add("main-card");
+  document.body.classList.add("body-centered");
 }
 
 // Open formula modal

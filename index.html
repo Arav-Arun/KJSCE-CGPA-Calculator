@@ -5,675 +5,420 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KJSSE CGPA Calculator</title>
     <!-- Website Icon -->
-    <link rel="icon" href="CGPAcalc-logo.png" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="print.css" />
+    <link rel="icon" href="assets/CGPAcalc-logo.png" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/print.css" />
   </head>
-  <body>
-    <!-- Header & Formula Button -->
-    <header class="banner">
-      <h1>KJSSE CGPA Calculator</h1>
-      <button class="view-formula-button" onclick="openFormulaModal()">
-        View Formula
-      </button>
-    </header>
+  <body class="body-centered">
+    <div class="main-card" id="app-container">
+      <!-- Header & Formula Button -->
+      <header class="banner">
+        <h1>KJSSE CGPA Calculator</h1>
+        <button class="view-formula-button" onclick="openFormulaModal()">
+          View Formula
+        </button>
+      </header>
 
-    <main>
-      <!-- Branch, Batch and Semester Selection Screen -->
-      <div id="selectionScreen" class="selection-screen">
-        <div class="selection-container">
-          <h2>Select Your Batch, Branch and Semester</h2>
+      <main>
+        <!-- Branch, Batch and Semester Selection Screen -->
+        <div id="selectionScreen" class="selection-screen">
+          <div class="selection-container">
+            <h2>Select Your Batch, Branch and Semester</h2>
 
-          <div class="selection-form">
-            <!-- Batch dropdown list-->
-            <div class="form-group">
-              <label for="batchSelect">Batch</label>
-              <select id="batchSelect" class="select-input">
-                <option value="">Select Batch</option>
-                <option value="2025-2029">2025-2029</option>
-                <option value="2024-2028">2024-2028</option>
-              </select>
+            <div class="selection-form">
+              <!-- Batch dropdown list-->
+              <div class="form-group">
+                <label for="batchSelect">Batch</label>
+                <select id="batchSelect" class="select-input">
+                  <option value="">Select Batch</option>
+                  <option value="2025-2029">2025-2029</option>
+                  <option value="2024-2028">2024-2028</option>
+                </select>
+              </div>
+
+              <!-- Branch dropdown list-->
+              <div class="form-group">
+                <label for="branchSelect">Branch</label>
+                <select id="branchSelect" class="select-input">
+                  <option value="">Select Branch</option>
+                  <option value="comp">Computer Engineering</option>
+                  <option value="it">Information Technology</option>
+                  <option value="aids">
+                    Artificial Intelligence & Data Science
+                  </option>
+                  <option value="csbs">
+                    Computer Science & Business Systems
+                  </option>
+                  <option value="cce">
+                    Computer & Communication Engineering
+                  </option>
+                  <option value="ece">Electronics & Computer Engineering</option>
+                  <option value="extc">
+                    Electronics & Telecommunication Engineering
+                  </option>
+                  <option value="vlsi">VLSI Design & Technology</option>
+                  <option value="rai">Robotics & Artificial Intelligence</option>
+                  <option value="mech">Mechanical Engineering</option>
+                </select>
+              </div>
+
+              <!-- Semester dropdown list -->
+              <div class="form-group">
+                <label for="semesterSelect">Semester</label>
+                <select id="semesterSelect" class="select-input">
+                  <option value="">Select Semester</option>
+                  <option value="1">Semester 1</option>
+                  <option value="2">Semester 2</option>
+                  <option value="3">Semester 3</option>
+                  <option value="4">Semester 4</option>
+                  <option value="5">Semester 5</option>
+                  <option value="6">Semester 6</option>
+                  <option value="7">Semester 7</option>
+                </select>
+              </div>
+
+              <!-- Proceed buttons -->
+              <div class="selection-actions">
+                <button class="proceed-button" onclick="proceedToCalculator()">
+                  Proceed to SGPA Calculator
+                </button>
+                <button
+                  class="cgpa-calculator-button"
+                  onclick="proceedToCGPACalculator()"
+                >
+                  Calculate Overall CGPA
+                </button>
+              </div>
+
+              <!-- Error message -->
+              <div
+                id="selectionError"
+                class="error-message"
+                style="display: none"
+              ></div>
             </div>
+          </div>
+        </div>
 
-            <!-- Branch dropdown list-->
-            <div class="form-group">
-              <label for="branchSelect">Branch</label>
-              <select id="branchSelect" class="select-input">
-                <option value="">Select Branch</option>
-                <option value="comp">Computer Engineering</option>
-                <option value="it">Information Technology</option>
-                <option value="aids">
-                  Artificial Intelligence & Data Science
-                </option>
-                <option value="csbs">
-                  Computer Science & Business Systems
-                </option>
-                <option value="cce">
-                  Computer & Communication Engineering
-                </option>
-                <option value="ece">Electronics & Computer Engineering</option>
-                <option value="extc">
-                  Electronics & Telecommunication Engineering
-                </option>
-                <option value="vlsi">VLSI Design & Technology</option>
-                <option value="rai">Robotics & Artificial Intelligence</option>
-                <option value="mech">Mechanical Engineering</option>
-              </select>
-            </div>
-
-            <!-- Semester dropdown list -->
-            <div class="form-group">
-              <label for="semesterSelect">Semester</label>
-              <select id="semesterSelect" class="select-input">
-                <option value="">Select Semester</option>
-                <option value="1">Semester 1</option>
-                <option value="2">Semester 2</option>
-                <option value="3">Semester 3</option>
-                <option value="4">Semester 4</option>
-                <option value="5">Semester 5</option>
-                <option value="6">Semester 6</option>
-                <option value="7">Semester 7</option>
-              </select>
-            </div>
-
-            <!-- Proceed buttons -->
-            <div class="selection-actions">
-              <button class="proceed-button" onclick="proceedToCalculator()">
-                Proceed to SGPA Calculator
+        <!-- Calculation Screen (Hidden initially) -->
+        <div
+          id="calculatorScreen"
+          class="calculator-screen"
+          style="display: none"
+        >
+          <!-- Shows current selection -->
+          <div class="breadcrumb">
+            <span id="breadcrumbText"></span>
+            <div class="breadcrumb-buttons">
+              <button class="change-selection-button" onclick="changeSelection()">
+                Change Selection
               </button>
               <button
-                class="cgpa-calculator-button"
+                class="cgpa-calculator-button-small"
                 onclick="proceedToCGPACalculator()"
               >
                 Calculate Overall CGPA
               </button>
             </div>
+          </div>
 
-            <!-- Error message -->
-            <div
-              id="selectionError"
-              class="error-message"
-              style="display: none"
-            ></div>
+          <!-- Instructions -->
+          <div class="info-box">
+            <p>
+              1. Enter marks for each subject and click "Calculate Subject
+              Pointer"
+            </p>
+            <p>2. Then click "Calculate Overall SGPA" to get overall SGPA</p>
+          </div>
+
+          <!-- Subject cards container -->
+          <div class="subjects-grid" id="subjectsGrid"></div>
+
+          <!-- Calculate overall SGPA button -->
+          <div class="calculate-sgpa-container">
+            <button
+              class="calculate-sgpa-button"
+              onclick="calculateOverallSGPA()"
+            >
+              Calculate Overall SGPA
+            </button>
+          </div>
+
+          <!-- Results display section -->
+          <div id="outputSection" class="output-section">
+            <div class="placeholder-text">
+              <h3>Your overall SGPA will appear here</h3>
+            </div>
+          </div>
+
+          <!-- Print Button -->
+          <div id="printContainer" class="print-container" style="display: none">
+            <button class="print-button" onclick="printResult()">
+              Print Result
+            </button>
           </div>
         </div>
-      </div>
 
-      <!-- Calculation Screen (Hidden initially) -->
-      <div
-        id="calculatorScreen"
-        class="calculator-screen"
-        style="display: none"
-      >
-        <!-- Shows current selection -->
-        <div class="breadcrumb">
-          <span id="breadcrumbText"></span>
-          <div class="breadcrumb-buttons">
+        <!-- CGPA Calculator Screen (Hidden initially) -->
+        <div
+          id="cgpaCalculatorScreen"
+          class="calculator-screen"
+          style="display: none"
+        >
+          <!-- Navigation -->
+          <div class="breadcrumb">
+            <span>Overall CGPA Calculator</span>
             <button class="change-selection-button" onclick="changeSelection()">
-              Change Selection
+              Back to Selection
             </button>
-            <button
-              class="cgpa-calculator-button-small"
-              onclick="proceedToCGPACalculator()"
-            >
+          </div>
+
+          <!-- Instructions -->
+          <div class="info-box">
+            <p>
+              Enter your SGPA and Credits for each semester to calculate your
+              overall CGPA
+            </p>
+            <p>Leave semesters blank if you haven't completed them yet</p>
+          </div>
+
+          <!-- Semester cards grid -->
+          <div class="cgpa-grid" id="cgpaGrid">
+            <!-- Semester 1 -->
+            <div class="cgpa-card">
+              <h3>Semester 1</h3>
+              <div class="input-group">
+                <label>SGPA</label>
+                <input
+                  type="number"
+                  id="sgpa1"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  placeholder="Enter SGPA"
+                />
+              </div>
+              <div class="input-group">
+                <label>Credits</label>
+                <input
+                  type="number"
+                  id="credits1"
+                  min="0"
+                  step="1"
+                  placeholder="Enter Credits"
+                />
+              </div>
+            </div>
+
+            <!-- Semester 2 -->
+            <div class="cgpa-card">
+              <h3>Semester 2</h3>
+              <div class="input-group">
+                <label>SGPA</label>
+                <input
+                  type="number"
+                  id="sgpa2"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  placeholder="Enter SGPA"
+                />
+              </div>
+              <div class="input-group">
+                <label>Credits</label>
+                <input
+                  type="number"
+                  id="credits2"
+                  min="0"
+                  step="1"
+                  placeholder="Enter Credits"
+                />
+              </div>
+            </div>
+
+            <!-- Semester 3 -->
+            <div class="cgpa-card">
+              <h3>Semester 3</h3>
+              <div class="input-group">
+                <label>SGPA</label>
+                <input
+                  type="number"
+                  id="sgpa3"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  placeholder="Enter SGPA"
+                />
+              </div>
+              <div class="input-group">
+                <label>Credits</label>
+                <input
+                  type="number"
+                  id="credits3"
+                  min="0"
+                  step="1"
+                  placeholder="Enter Credits"
+                />
+              </div>
+            </div>
+
+            <!-- Semester 4 -->
+            <div class="cgpa-card">
+              <h3>Semester 4</h3>
+              <div class="input-group">
+                <label>SGPA</label>
+                <input
+                  type="number"
+                  id="sgpa4"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  placeholder="Enter SGPA"
+                />
+              </div>
+              <div class="input-group">
+                <label>Credits</label>
+                <input
+                  type="number"
+                  id="credits4"
+                  min="0"
+                  step="1"
+                  placeholder="Enter Credits"
+                />
+              </div>
+            </div>
+
+            <!-- Semester 5 -->
+            <div class="cgpa-card">
+              <h3>Semester 5</h3>
+              <div class="input-group">
+                <label>SGPA</label>
+                <input
+                  type="number"
+                  id="sgpa5"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  placeholder="Enter SGPA"
+                />
+              </div>
+              <div class="input-group">
+                <label>Credits</label>
+                <input
+                  type="number"
+                  id="credits5"
+                  min="0"
+                  step="1"
+                  placeholder="Enter Credits"
+                />
+              </div>
+            </div>
+
+            <!-- Semester 6 -->
+            <div class="cgpa-card">
+              <h3>Semester 6</h3>
+              <div class="input-group">
+                <label>SGPA</label>
+                <input
+                  type="number"
+                  id="sgpa6"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  placeholder="Enter SGPA"
+                />
+              </div>
+              <div class="input-group">
+                <label>Credits</label>
+                <input
+                  type="number"
+                  id="credits6"
+                  min="0"
+                  step="1"
+                  placeholder="Enter Credits"
+                />
+              </div>
+            </div>
+
+            <!-- Semester 7 -->
+            <div class="cgpa-card">
+              <h3>Semester 7</h3>
+              <div class="input-group">
+                <label>SGPA</label>
+                <input
+                  type="number"
+                  id="sgpa7"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  placeholder="Enter SGPA"
+                />
+              </div>
+              <div class="input-group">
+                <label>Credits</label>
+                <input
+                  type="number"
+                  id="credits7"
+                  min="0"
+                  step="1"
+                  placeholder="Enter Credits"
+                />
+              </div>
+            </div>
+
+            <!-- Semester 8 -->
+            <div class="cgpa-card">
+              <h3>Semester 8</h3>
+              <div class="input-group">
+                <label>SGPA</label>
+                <input
+                  type="number"
+                  id="sgpa8"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  placeholder="Enter SGPA"
+                />
+              </div>
+              <div class="input-group">
+                <label>Credits</label>
+                <input
+                  type="number"
+                  id="credits8"
+                  min="0"
+                  step="1"
+                  placeholder="Enter Credits"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculate CGPA button -->
+          <div class="calculate-sgpa-container">
+            <button class="calculate-sgpa-button" onclick="calculateCGPA()">
               Calculate Overall CGPA
             </button>
           </div>
+
+          <!-- CGPA Results -->
+          <div id="cgpaOutputSection" class="output-section">
+            <div class="placeholder-text">
+              <h3>Your overall CGPA will appear here</h3>
+            </div>
+          </div>
         </div>
+      </main>
 
-        <!-- Instructions -->
-        <div class="info-box">
-          <p>
-            1. Enter marks for each subject and click "Calculate Subject
-            Pointer"
-          </p>
-          <p>2. Then click "Calculate Overall SGPA" to get overall SGPA</p>
-        </div>
-
-        <!-- Subject cards container -->
-        <div class="subjects-grid" id="subjectsGrid"></div>
-
-        <!-- Calculate overall SGPA button -->
-        <div class="calculate-sgpa-container">
-          <button
-            class="calculate-sgpa-button"
-            onclick="calculateOverallSGPA()"
+      <!-- Footer -->
+      <footer>
+        <p>
+          Made with ❤️ by
+          <a href="https://aravarun.xyz" style="text-decoration: underline"
+            >Arav Arun</a
           >
-            Calculate Overall SGPA
-          </button>
-        </div>
-
-        <!-- Results display section -->
-        <div id="outputSection" class="output-section">
-          <div class="placeholder-text">
-            <h3>Your overall SGPA will appear here</h3>
-          </div>
-        </div>
-
-        <!-- Print Button -->
-        <div id="printContainer" class="print-container" style="display: none">
-          <button class="print-button" onclick="printResult()">
-            Print Result
-          </button>
-        </div>
-      </div>
-
-      <!-- CGPA Calculator Screen (Hidden initially) -->
-      <div
-        id="cgpaCalculatorScreen"
-        class="calculator-screen"
-        style="display: none"
-      >
-        <!-- Navigation -->
-        <div class="breadcrumb">
-          <span>Overall CGPA Calculator</span>
-          <button class="change-selection-button" onclick="changeSelection()">
-            Back to Selection
-          </button>
-        </div>
-
-        <!-- Instructions -->
-        <div class="info-box">
-          <p>
-            Enter your SGPA and Credits for each semester to calculate your
-            overall CGPA
-          </p>
-          <p>Leave semesters blank if you haven't completed them yet</p>
-        </div>
-
-        <!-- Semester cards grid -->
-        <div class="cgpa-grid" id="cgpaGrid">
-          <!-- Semester 1 -->
-          <div class="cgpa-card">
-            <h3>Semester 1</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa1"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits1"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 2 -->
-          <div class="cgpa-card">
-            <h3>Semester 2</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa2"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits2"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 3 -->
-          <div class="cgpa-card">
-            <h3>Semester 3</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa3"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits3"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 4 -->
-          <div class="cgpa-card">
-            <h3>Semester 4</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa4"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits4"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 5 -->
-          <div class="cgpa-card">
-            <h3>Semester 5</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa5"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits5"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 6 -->
-          <div class="cgpa-card">
-            <h3>Semester 6</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa6"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits6"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 7 -->
-          <div class="cgpa-card">
-            <h3>Semester 7</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa7"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits7"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 8 -->
-          <div class="cgpa-card">
-            <h3>Semester 8</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa8"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits8"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Calculate CGPA button -->
-        <div class="calculate-sgpa-container">
-          <button class="calculate-sgpa-button" onclick="calculateCGPA()">
-            Calculate Overall CGPA
-          </button>
-        </div>
-
-        <!-- CGPA Results -->
-        <!-- CGPA Results -->
-        <div id="cgpaOutputSection" class="output-section">
-          <div class="placeholder-text">
-            <h3>Your Final CGPA will appear here</h3>
-          </div>
-        </div>
-
-        <!-- Print Button for Overall CGPA -->
-        <div id="printOverallContainer" class="print-container" style="display: none">
-          <button class="print-button" onclick="printOverallResult()">
-            Print Result
-          </button>
-        </div>
-      </div>
-
-      <!-- CGPA Calculator Screen (Hidden initially) -->
-      <div
-        id="cgpaCalculatorScreen"
-        class="calculator-screen"
-        style="display: none"
-      >
-        <!-- Navigation -->
-        <div class="breadcrumb">
-          <span>Overall CGPA Calculator</span>
-          <button class="change-selection-button" onclick="changeSelection()">
-            Back to Selection
-          </button>
-        </div>
-
-        <!-- Instructions -->
-        <div class="info-box">
-          <p>
-            Enter your SGPA and Credits for each semester to calculate your
-            overall CGPA
-          </p>
-          <p>Leave semesters blank if you haven't completed them yet</p>
-        </div>
-
-        <!-- Semester cards grid -->
-        <div class="cgpa-grid" id="cgpaGrid">
-          <!-- Semester 1 -->
-          <div class="cgpa-card">
-            <h3>Semester 1</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa1"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits1"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 2 -->
-          <div class="cgpa-card">
-            <h3>Semester 2</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa2"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits2"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 3 -->
-          <div class="cgpa-card">
-            <h3>Semester 3</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa3"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits3"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 4 -->
-          <div class="cgpa-card">
-            <h3>Semester 4</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa4"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits4"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 5 -->
-          <div class="cgpa-card">
-            <h3>Semester 5</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa5"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits5"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 6 -->
-          <div class="cgpa-card">
-            <h3>Semester 6</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa6"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits6"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 7 -->
-          <div class="cgpa-card">
-            <h3>Semester 7</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa7"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits7"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-
-          <!-- Semester 8 -->
-          <div class="cgpa-card">
-            <h3>Semester 8</h3>
-            <div class="input-group">
-              <label>SGPA</label>
-              <input
-                type="number"
-                id="sgpa8"
-                min="0"
-                max="10"
-                step="0.01"
-                placeholder="Enter SGPA"
-              />
-            </div>
-            <div class="input-group">
-              <label>Credits</label>
-              <input
-                type="number"
-                id="credits8"
-                min="0"
-                step="1"
-                placeholder="Enter Credits"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Calculate CGPA button -->
-        <div class="calculate-sgpa-container">
-          <button class="calculate-sgpa-button" onclick="calculateCGPA()">
-            Calculate Overall CGPA
-          </button>
-        </div>
-
-        <!-- CGPA Results -->
-        <div id="cgpaOutputSection" class="output-section">
-          <div class="placeholder-text">
-            <h3>Your overall CGPA will appear here</h3>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-      <p>
-        Made with ❤️ by
-        <a href="https://aravarun.xyz" style="text-decoration: underline"
-          >Arav Arun</a
-        >
-      </p>
-    </footer>
+        </p>
+      </footer>
+    </div>
 
     <!-- Formula Modal -->
     <div
@@ -812,7 +557,7 @@
     <!-- Hidden Print Area for SGPA -->
     <div id="printAreaSGPA" class="print-area">
       <div class="watermark">
-        <img src="CGPAcalc-logo.png" alt="Logo" />
+        <img src="assets/CGPAcalc-logo.png" alt="Logo" />
       </div>
 
       <div class="print-content">
@@ -874,7 +619,7 @@
     <!-- Hidden Print Area for Overall CGPA -->
     <div id="printAreaOverall" class="print-area">
       <div class="watermark">
-        <img src="CGPAcalc-logo.png" alt="Logo" />
+        <img src="assets/CGPAcalc-logo.png" alt="Logo" />
       </div>
 
       <div class="print-content">
@@ -916,8 +661,8 @@
     </div>
 
     <!-- JavaScript Files Load-->
-    <script src="data-config.js"></script>
-    <script src="script.js"></script>
-    <script src="print.js"></script>
+    <script src="js/data-config.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/print.js"></script>
   </body>
 </html>
