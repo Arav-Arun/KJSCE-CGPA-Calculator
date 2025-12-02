@@ -1,6 +1,6 @@
 # 🎓 KJSSE CGPA Calculator
 
-![KJSCE CGPA Calculator Logo](./banner.png)
+![KJSCE CGPA Calculator Logo](./assets/banner.png)
 
 A **minimal**, **intuitive**, and **responsive** web-based calculator built to help **KJSSE students** easily compute their **CGPA** and **SGPA** based on semester grades and credits.
 
