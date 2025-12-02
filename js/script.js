@@ -570,10 +570,13 @@ function calculateCGPA() {
     output + "<strong>Semesters Included:</strong> " + semestersEntered + " | ";
   output = output + "<strong>CGPA:</strong> " + cgpa.toFixed(2);
   output = output + "</div>";
+  
+  // Add print button dynamically
+  output = output + '<div class="print-container"><button class="print-button" onclick="printOverallResult()">Print Result</button></div>';
 
   // Display output
   document.getElementById("cgpaOutputSection").innerHTML = output;
-  document.getElementById("printOverallContainer").style.display = "block";
+  // document.getElementById("printOverallContainer").style.display = "block"; // Removed static container logic
   document
     .getElementById("cgpaOutputSection")
     .scrollIntoView({ behavior: "smooth" });
