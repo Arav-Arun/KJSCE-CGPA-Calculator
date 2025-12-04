@@ -58,7 +58,9 @@ header h1 {
   margin-bottom: 15px;
 }
 
-.view-formula-button {
+/* Shared styles for header buttons */
+.view-formula-button,
+.study-resources-button {
   background-color: #d6f8e0;
   color: #1e1e1e;
   border: none;
@@ -66,9 +68,17 @@ header h1 {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-family: inherit;
+  vertical-align: middle;
+  margin: 5px;
+  line-height: normal; /* Ensure consistent height */
 }
 
-.view-formula-button:hover {
+.view-formula-button:hover,
+.study-resources-button:hover {
   background-color: #c5e7cf;
 }
 
@@ -710,7 +720,8 @@ th {
     font-size: 24px;
   }
 
-  .view-formula-button {
+  .view-formula-button,
+  .study-resources-button {
     padding: 8px 16px;
     font-size: 14px;
   }
