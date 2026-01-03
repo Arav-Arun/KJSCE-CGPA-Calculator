@@ -1,5 +1,3 @@
-// ========== COMPLETE UPDATED DATA-CONFIG.JS FILE ==========
-
 // Subject data for Semester 1 (common for all branches - Batch 2025-2029)
 const semester1Subjects = [
   {
@@ -107,6 +105,136 @@ const semester1Subjects = [
     name: "Maker Space Laboratory – I",
     credits: 1,
     fields: [{ name: "lab", label: "Lab Marks", max: 50 }],
+    defaultHighest: 50,
+  },
+];
+
+// Semester 2 subjects for ALL branches - Batch 2025-2029
+// Common subjects for all branches
+const semester2CommonSubjects = [
+  {
+    id: 201,
+    name: "Applied Mathematics – II (Theory)",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "mse", label: "Mid-Semester Exam (MSE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 211,
+    name: "Applied Mathematics – II (Tutorial)",
+    credits: 1,
+    fields: [{ name: "tutorial", label: "Tutorial CA", max: 25 }],
+    defaultHighest: 25,
+  },
+  {
+    id: 203,
+    name: "Digital Logic Design",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "mse", label: "Mid-Semester Exam (MSE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 204,
+    name: "Environmental Science",
+    credits: 2,
+    fields: [{ name: "ca", label: "Continuous Assessment (CA)", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 205,
+    name: "Object-Oriented Programming Methodology",
+    credits: 3,
+    fields: [
+      { name: "ca", label: "Continuous Assessment (CA)", max: 50 },
+      { name: "practical", label: "Practical / OR Exam", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 206,
+    name: "Presentation and Communication Skills",
+    credits: 2,
+    fields: [{ name: "ca", label: "Continuous Assessment (CA)", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 207,
+    name: "Applied Science Laboratory - II",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 209,
+    name: "Digital Logic Design Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 210,
+    name: "Maker Space Laboratory – II",
+    credits: 1,
+    fields: [
+      { name: "lab", label: "Lab CA", max: 50 },
+      { name: "project", label: "Project Evaluation", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+];
+
+// Branch-specific subject for Computer & Allied Programs
+const semester2Subject_ComputerAllied = {
+  id: 202,
+  name: "Applied Science for Computer & Allied Programs",
+  credits: 3,
+  fields: [
+    { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+    { name: "mse", label: "Mid-Semester Exam (MSE)", max: 30 },
+    { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+  ],
+  defaultHighest: 100,
+};
+
+// Branch-specific subject for Electronics & Allied Programs
+const semester2Subject_ElectronicsAllied = {
+  id: 202,
+  name: "Applied Science for Electronics & Allied Programs",
+  credits: 3,
+  fields: [
+    { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+    { name: "mse", label: "Mid-Semester Exam (MSE)", max: 30 },
+    { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+  ],
+  defaultHighest: 100,
+};
+
+// Branch-specific subjects for Mechanical & RAI Programs
+const semester2Subjects_MechRAI = [
+  {
+    id: 202,
+    name: "Engineering Mechanics",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "mse", label: "Mid-Semester Exam (MSE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 208,
+    name: "Engineering Mechanics Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
     defaultHighest: 50,
   },
 ];
@@ -327,12 +455,154 @@ const semester3Subjects_RAI_2024 = [
   },
 ];
 
+// Semester 4 subjects for Computer Engineering - Batch 2024-2028
+const semester4Subjects_COMP_2024 = [
+  {
+    id: 401,
+    name: "Probability, Statistics and Optimization Techniques (Theory)",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 411,
+    name: "Probability, Statistics and Optimization Techniques (Tutorial)",
+    credits: 1,
+    fields: [{ name: "tutorial", label: "Tutorial/LAB CA", max: 25 }],
+    defaultHighest: 25,
+  },
+  {
+    id: 402,
+    name: "Analysis of Algorithms",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 403,
+    name: "Relational Database Management Systems",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 404,
+    name: "Operating Systems",
+    credits: 3,
+    fields: [
+      { name: "ia", label: "Internal Assessment (IA)", max: 20 },
+      { name: "ise", label: "In-Semester Exam (ISE)", max: 30 },
+      { name: "ese", label: "End-Semester Exam (ESE)", max: 50 },
+    ],
+    defaultHighest: 100,
+  },
+  {
+    id: 405,
+    name: "Open Elective (Generic)",
+    credits: 3,
+    fields: [{ name: "ca", label: "Continuous Assessment (CA)", max: 100 }],
+    defaultHighest: 100,
+    hasOptions: true,
+    options: [
+      { value: "216U06R401", label: "Ancient Indian Iconography" },
+      { value: "216U06R402", label: "French Culture and Civilization" },
+      { value: "216U06R403", label: "German Culture and Society" },
+      { value: "216U06R404", label: "Indian Cinema: History and Appreciation" },
+      { value: "216U06R405", label: "Indian Civilization" },
+      { value: "216U06R406", label: "Literature of Resistance" },
+      { value: "216U06R407", label: "Marathi Kavita" },
+      { value: "216U06R408", label: "Maritime Seafaring and Shipbuilding" },
+      { value: "216U06R409", label: "Mountains, People and Cultures" },
+      { value: "216U06R410", label: "Philosophy of Science" },
+      {
+        value: "216U06R411",
+        label: "The Non-Human Species Depicted in Literature",
+      },
+      { value: "216U06R412", label: "World Civilizations" },
+      { value: "216U06R413", label: "Physics and Philosophy" },
+    ],
+  },
+  {
+    id: 406,
+    name: "Competitive Programming Laboratory",
+    credits: 2,
+    fields: [{ name: "lab", label: "Lab/TUT CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 407,
+    name: "Analysis of Algorithms Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 408,
+    name: "Relational Database Management Systems Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 409,
+    name: "Operating Systems Laboratory",
+    credits: 1,
+    fields: [{ name: "lab", label: "Lab CA", max: 50 }],
+    defaultHighest: 50,
+  },
+  {
+    id: 410,
+    name: "Web Programming Laboratory",
+    credits: 3,
+    fields: [{ name: "lab", label: "Lab/TUT CA", max: 75 }],
+    defaultHighest: 75,
+  },
+];
+
 // Get subjects for a branch, semester, and batch
 function getSubjects(branchId, semesterId, batchId) {
   // Batch 2025-2029
   if (batchId === "2025-2029") {
     if (semesterId === 1) {
       return semester1Subjects;
+    }
+
+    // Semester 2 - Branch-specific logic
+    if (semesterId === 2) {
+      // Define branch groups
+      const computerAlliedBranches = ["aids", "comp", "cce", "csbs", "it"];
+      const electronicsAlliedBranches = ["ece", "extc", "vlsi"];
+      const mechRAIBranches = ["mech", "rai"];
+
+      // Computer & Allied Programs
+      if (computerAlliedBranches.includes(branchId)) {
+        return [...semester2CommonSubjects, semester2Subject_ComputerAllied];
+      }
+
+      // Electronics & Allied Programs
+      if (electronicsAlliedBranches.includes(branchId)) {
+        return [...semester2CommonSubjects, semester2Subject_ElectronicsAllied];
+      }
+
+      // Mechanical & RAI Programs
+      if (mechRAIBranches.includes(branchId)) {
+        return [...semester2CommonSubjects, ...semester2Subjects_MechRAI];
+      }
+
+      // If branch not found in any group, return null
+      return null;
     }
   }
 
@@ -343,6 +613,15 @@ function getSubjects(branchId, semesterId, batchId) {
         return semester3Subjects_COMP_2024;
       } else if (branchId === "rai") {
         return semester3Subjects_RAI_2024;
+      } else {
+        // Data not available for other branches yet
+        return null;
+      }
+    }
+    // Semester 4 for Computer Engineering
+    if (semesterId === 4) {
+      if (branchId === "comp") {
+        return semester4Subjects_COMP_2024;
       } else {
         // Data not available for other branches yet
         return null;

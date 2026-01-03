@@ -139,6 +139,34 @@ function createOneSubjectCard(subject) {
   html = html + '<div class="subject-card">';
   html = html + "<h3>" + subject.name + "</h3>";
 
+  // Add dropdown for subject selection if it has options
+  if (subject.hasOptions && subject.options) {
+    html = html + '<div class="input-group">';
+    html = html + "<label>Select Elective Course</label>";
+    html =
+      html +
+      '<select id="s' +
+      subject.id +
+      '-elective" class="elective-dropdown">';
+    html = html + '<option value="">-- Choose Your Elective --</option>';
+
+    let optionIndex = 0;
+    while (optionIndex < subject.options.length) {
+      const option = subject.options[optionIndex];
+      html =
+        html +
+        '<option value="' +
+        option.value +
+        '">' +
+        option.label +
+        "</option>";
+      optionIndex = optionIndex + 1;
+    }
+
+    html = html + "</select>";
+    html = html + "</div>";
+  }
+
   // Adding input fields for each component
   let fieldIndex = 0;
   while (fieldIndex < subject.fields.length) {
@@ -151,17 +179,21 @@ function createOneSubjectCard(subject) {
     html = html + 'id="s' + subject.id + "-" + field.name + '" ';
     html = html + 'min="0" max="' + field.max + '" step="1" ';
     html = html + 'placeholder="Enter marks" ';
-    
+
     // Add event listener for prediction
     html = html + 'oninput="updatePrediction(' + subject.id + ')" ';
-    
+
     html = html + ">";
-    
+
     // Add prediction text container below ESE input
     if (field.name === "ese") {
-        html = html + '<div id="prediction-' + subject.id + '" class="prediction-text"></div>';
+      html =
+        html +
+        '<div id="prediction-' +
+        subject.id +
+        '" class="prediction-text"></div>';
     }
-    
+
     html = html + "</div>";
 
     fieldIndex = fieldIndex + 1;
@@ -570,9 +602,11 @@ function calculateCGPA() {
     output + "<strong>Semesters Included:</strong> " + semestersEntered + " | ";
   output = output + "<strong>CGPA:</strong> " + cgpa.toFixed(2);
   output = output + "</div>";
-  
+
   // Add print button dynamically
-  output = output + '<div class="print-container"><button class="print-button" onclick="printOverallResult()">Print Result</button></div>';
+  output =
+    output +
+    '<div class="print-container"><button class="print-button" onclick="printOverallResult()">Print Result</button></div>';
 
   // Display output
   document.getElementById("cgpaOutputSection").innerHTML = output;
@@ -640,8 +674,6 @@ function closeModalOnClickOutside(event) {
   }
 }
 
-
-
 // Update prediction for ESE marks
 function updatePrediction(subjectId) {
   // Find the subject
@@ -674,7 +706,7 @@ function updatePrediction(subjectId) {
 
   const predictionDiv = document.getElementById("prediction-" + subjectId);
   const eseInput = document.getElementById("s" + subjectId + "-ese");
-  
+
   // If ESE marks are entered, hide prediction
   if (eseInput.value !== "") {
     predictionDiv.innerHTML = "";
@@ -705,7 +737,7 @@ function updatePrediction(subjectId) {
 
   // Calculate required totals
   const requiredFor10 = 0.8 * highest; // 80% for 10 pointer
-  const requiredFor9 = 0.7 * highest;  // 70% for 9 pointer
+  const requiredFor9 = 0.7 * highest; // 70% for 9 pointer
 
   // Calculate required ESE
   const needFor10 = Math.ceil(requiredFor10 - currentTotal);
@@ -715,9 +747,15 @@ function updatePrediction(subjectId) {
 
   if (needFor10 <= eseMax) {
     if (needFor10 <= 0) {
-        predictionHTML += "<span class='predict-success'>Already secured 10 Pointer!</span>";
+      predictionHTML +=
+        "<span class='predict-success'>Already secured 10 Pointer!</span>";
     } else {
-        predictionHTML += "Need <strong>" + needFor10 + "</strong>/" + eseMax + " in ESE for 10 Pt";
+      predictionHTML +=
+        "Need <strong>" +
+        needFor10 +
+        "</strong>/" +
+        eseMax +
+        " in ESE for 10 Pt";
     }
   } else {
     predictionHTML += "<span class='predict-fail'>10 Pt not possible</span>";
@@ -727,9 +765,11 @@ function updatePrediction(subjectId) {
 
   if (needFor9 <= eseMax) {
     if (needFor9 <= 0) {
-        predictionHTML += "<span class='predict-success'>Already secured 9 Pointer!</span>";
+      predictionHTML +=
+        "<span class='predict-success'>Already secured 9 Pointer!</span>";
     } else {
-        predictionHTML += "Need <strong>" + needFor9 + "</strong>/" + eseMax + " in ESE for 9 Pt";
+      predictionHTML +=
+        "Need <strong>" + needFor9 + "</strong>/" + eseMax + " in ESE for 9 Pt";
     }
   } else {
     predictionHTML += "<span class='predict-fail'>9 Pt not possible</span>";

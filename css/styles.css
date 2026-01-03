@@ -8,7 +8,10 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #1e1e1e;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 30px 30px;
   color: white;
@@ -368,6 +371,28 @@ main {
 .input-group input:focus {
   outline: none;
   border-color: #d6f8e0;
+}
+
+/* Elective Dropdown Styling */
+.elective-dropdown {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #3a3a3a;
+  border-radius: 16px;
+  background-color: #1e1e1e;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.elective-dropdown:focus {
+  outline: none;
+  border-color: #d6f8e0;
+}
+
+.elective-dropdown option {
+  background-color: #1e1e1e;
+  color: white;
 }
 
 /* Buttons */
@@ -825,5 +850,3 @@ th {
 .print-button:hover {
   background-color: #c5e7cf;
 }
-
-
