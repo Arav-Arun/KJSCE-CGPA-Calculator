@@ -1,9 +1,7 @@
-/**
- * Print Functionality
- * Handles generating and printing SGPA and CGPA reports.
- */
+// Print Functionality
+// Handles generating and printing SGPA and CGPA reports.
 
-// --- Print Functions ---
+// --- Print Utility Functions ---
 
 function printResult() {
   // Set Print Title
@@ -54,9 +52,25 @@ function printResult() {
       highest = subject.defaultHighest;
     }
 
+    let displayName = subject.name;
+    // Check if it's an elective and get the specific selected name
+    if (subject.hasOptions) {
+      const electiveSelect = document.getElementById(
+        "s" + subject.id + "-elective"
+      );
+      if (electiveSelect && electiveSelect.value) {
+        const selectedOption = subject.options.find(
+          (opt) => opt.value === electiveSelect.value
+        );
+        if (selectedOption) {
+          displayName = selectedOption.label;
+        }
+      }
+    }
+
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${subject.name}</td>
+      <td>${displayName}</td>
       <td>${marksBreakdown.join(", ")}</td>
       <td>${totalMarks.toFixed(0)} / ${highest}</td>
       <td>${subject.credits}</td>

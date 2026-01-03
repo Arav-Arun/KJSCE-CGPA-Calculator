@@ -1,7 +1,8 @@
-/**
- * Main Script for KJSSE CGPA Calculator
- * Handles UI interactions, calculations, and state management.
- */
+// KJSSE CGPA Calculator
+// Main script for handling UI, calculations, and state.
+// Author: Arav Arun | Version: 2.0
+
+// --- Global State ---
 
 // Store current selections
 let selectedBranch = null;
@@ -9,6 +10,13 @@ let selectedSemester = null;
 let selectedBatch = null;
 let currentSubjects = [];
 let gradePoints = {};
+
+// Load saved state on page load
+document.addEventListener("DOMContentLoaded", function () {
+  loadState();
+});
+
+// --- Constants ---
 
 const branchNames = {
   aids: "Artificial Intelligence & Data Science",
@@ -23,7 +31,9 @@ const branchNames = {
   rai: "Robotics & Artificial Intelligence",
 };
 
-// When user clicks "Proceed to SGPA Calculator"
+// --- UI Interaction ---
+
+// Validate selection and switch to calculator screen
 function proceedToCalculator() {
   const batchDropdown = document.getElementById("batchSelect");
   const branchDropdown = document.getElementById("branchSelect");
@@ -86,9 +96,15 @@ function proceedToCalculator() {
 
   // Create subject cards
   createSubjectCards();
+
+  // Save state immediately
+  saveState();
+
+  // Add listeners to new inputs
+  addAutoSaveListeners();
 }
 
-// When user clicks "Calculate Overall CGPA"
+// Switch to Overall CGPA Calculator view
 function proceedToCGPACalculator() {
   // Hide other screens and show CGPA calculator screen
   document.getElementById("selectionScreen").style.display = "none";
@@ -104,7 +120,7 @@ function proceedToCGPACalculator() {
     '<div class="placeholder-text"><h3>Your overall CGPA will appear here</h3></div>';
 }
 
-// Show error message on selection screen
+// Show temporary error message
 function showError(message) {
   const errorDiv = document.getElementById("selectionError");
   errorDiv.textContent = message;
@@ -116,7 +132,9 @@ function showError(message) {
   }, 5000);
 }
 
-// Create all subject cards
+// --- DOM Generation ---
+
+// Render all subject cards to the grid
 function createSubjectCards() {
   const grid = document.getElementById("subjectsGrid");
   grid.innerHTML = ""; // Clear existing cards
@@ -131,15 +149,15 @@ function createSubjectCards() {
   }
 }
 
-// Creating HTML for one subject card
+// Create HTML for a single subject card
 function createOneSubjectCard(subject) {
   let html = "";
 
-  // Card header
+  // 1. Card Header
   html = html + '<div class="subject-card">';
   html = html + "<h3>" + subject.name + "</h3>";
 
-  // Add dropdown for subject selection if it has options
+  // 2. Elective Dropdown (if applicable)
   if (subject.hasOptions && subject.options) {
     html = html + '<div class="input-group">';
     html = html + "<label>Select Elective Course</label>";
@@ -167,7 +185,7 @@ function createOneSubjectCard(subject) {
     html = html + "</div>";
   }
 
-  // Adding input fields for each component
+  // 3. Mark Input Fields
   let fieldIndex = 0;
   while (fieldIndex < subject.fields.length) {
     const field = subject.fields[fieldIndex];
@@ -199,7 +217,7 @@ function createOneSubjectCard(subject) {
     fieldIndex = fieldIndex + 1;
   }
 
-  // Add highest marks field
+  // 4. Highest Marks Field
   html = html + '<div class="input-group">';
   html =
     html +
@@ -213,7 +231,9 @@ function createOneSubjectCard(subject) {
     html +
     'placeholder="Leave blank to assume ' +
     subject.defaultHighest +
-    '">';
+    '" oninput="updatePrediction(' +
+    subject.id +
+    ')">';
   html = html + "</div>";
 
   // Add calculate button
@@ -229,7 +249,9 @@ function createOneSubjectCard(subject) {
   return html;
 }
 
-// Percentage to grade point conversion
+// --- Calculation Logic ---
+
+// Convert percentage to 10-point scale
 function getGradePoint(percentage) {
   if (percentage >= 80) {
     return 10;
@@ -255,7 +277,7 @@ function getGradePoint(percentage) {
   return 0;
 }
 
-// Calculate grade point for one subject
+// Calculate pointer for a single subject
 function calculateSubject(subjectId) {
   // Finding the subject
   let subject = null;
@@ -361,7 +383,7 @@ function calculateSubject(subjectId) {
   resultDiv.style.display = "block";
 }
 
-// Check if all subjects marks have been entered
+// Verify if all fields have valid inputs
 function checkAllSubjectsFilled() {
   let subjectIndex = 0;
   while (subjectIndex < currentSubjects.length) {
@@ -386,7 +408,7 @@ function checkAllSubjectsFilled() {
   return true;
 }
 
-// Calculate overall SGPA
+// Calculate and display Overall SGPA
 function calculateOverallSGPA() {
   // Check if all subjects have marks, if not show warning
   if (checkAllSubjectsFilled() === false) {
@@ -454,8 +476,24 @@ function calculateOverallSGPA() {
     }
     const creditPoints = gp * subject.credits;
 
+    let displayName = subject.name;
+    // Check if it's an elective and get the specific selected name
+    if (subject.hasOptions) {
+      const electiveSelect = document.getElementById(
+        "s" + subject.id + "-elective"
+      );
+      if (electiveSelect && electiveSelect.value) {
+        const selectedOption = subject.options.find(
+          (opt) => opt.value === electiveSelect.value
+        );
+        if (selectedOption) {
+          displayName = selectedOption.label;
+        }
+      }
+    }
+
     output = output + "<tr>";
-    output = output + "<td>" + subject.name + "</td>";
+    output = output + "<td>" + displayName + "</td>";
     output = output + "<td>" + gp + "</td>";
     output = output + "<td>" + subject.credits + "</td>";
     output = output + "<td>" + creditPoints.toFixed(2) + "</td>";
@@ -483,9 +521,14 @@ function calculateOverallSGPA() {
   document
     .getElementById("outputSection")
     .scrollIntoView({ behavior: "smooth" });
+
+  // Trigger celebration if SGPA is excellent
+  if (sgpa >= 9.0) {
+    triggerConfetti();
+  }
 }
 
-// Calculate overall CGPA
+// Calculate and display Overall CGPA
 function calculateCGPA() {
   let totalCreditPoints = 0;
   let totalCredits = 0;
@@ -614,9 +657,16 @@ function calculateCGPA() {
   document
     .getElementById("cgpaOutputSection")
     .scrollIntoView({ behavior: "smooth" });
+
+  // Trigger celebration if CGPA is excellent
+  if (cgpa >= 9.0) {
+    triggerConfetti();
+  }
 }
 
-// Back to selection screen
+// --- Helper Functions ---
+
+// Reset everything and go back to home screen
 function changeSelection() {
   // Reset everything
   selectedBatch = null;
@@ -655,26 +705,33 @@ function changeSelection() {
   document.body.classList.add("body-centered");
 }
 
-// Open formula modal
+/**
+ * Opens the formula explanation modal.
+ */
 function openFormulaModal() {
   const modal = document.getElementById("formulaModal");
   modal.classList.add("show");
 }
 
-// Close formula modal
+/**
+ * Closes the formula explanation modal.
+ */
 function closeFormulaModal() {
   const modal = document.getElementById("formulaModal");
   modal.classList.remove("show");
 }
 
-// Close modal when clicking outside
+/**
+ * Closes the modal if the user clicks the backdrop (outside the modal content).
+ * @param {Event} event - The click event.
+ */
 function closeModalOnClickOutside(event) {
   if (event.target.id === "formulaModal") {
     closeFormulaModal();
   }
 }
 
-// Update prediction for ESE marks
+// Update "Marks Needed in ESE" prediction
 function updatePrediction(subjectId) {
   // Find the subject
   let subject = null;
@@ -776,4 +833,208 @@ function updatePrediction(subjectId) {
   }
 
   predictionDiv.innerHTML = predictionHTML;
+}
+
+// Fire confetti animation!
+function triggerConfetti() {
+  const duration = 3 * 1000;
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  const interval = setInterval(function () {
+    const timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
+
+    const particleCount = 50 * (timeLeft / duration);
+    // since particles fall down, start a bit higher than random
+    confetti(
+      Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      })
+    );
+    confetti(
+      Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      })
+    );
+  }, 250);
+}
+
+// --- State Management ---
+
+// Save current state to LocalStorage
+function saveState() {
+  const state = {
+    batch: selectedBatch,
+    branch: selectedBranch,
+    semester: selectedSemester,
+    marks: {},
+    cgpa: {},
+  };
+
+  // Save marks for current subjects
+  if (currentSubjects && currentSubjects.length > 0) {
+    let i = 0;
+    while (i < currentSubjects.length) {
+      const subject = currentSubjects[i];
+      const subjectMarks = {};
+
+      // Save elective selection if applicable
+      if (subject.hasOptions) {
+        const electiveSelect = document.getElementById(
+          "s" + subject.id + "-elective"
+        );
+        if (electiveSelect) {
+          subjectMarks.elective = electiveSelect.value;
+        }
+      }
+
+      // Save field values
+      let j = 0;
+      while (j < subject.fields.length) {
+        const field = subject.fields[j];
+        const inputId = "s" + subject.id + "-" + field.name;
+        const inputElement = document.getElementById(inputId);
+        if (inputElement) {
+          subjectMarks[field.name] = inputElement.value;
+        }
+        j++;
+      }
+
+      // Save highest marks override
+      const highestInput = document.getElementById(
+        "s" + subject.id + "-highest"
+      );
+      if (highestInput) {
+        subjectMarks.highest = highestInput.value;
+      }
+
+      state.marks[subject.id] = subjectMarks;
+      i++;
+    }
+  }
+
+  // Save CGPA calculation inputs
+  let s = 1;
+  while (s <= 8) {
+    const sgpaInput = document.getElementById("sgpa" + s);
+    const creditsInput = document.getElementById("credits" + s);
+    if (sgpaInput && creditsInput) {
+      state.cgpa[s] = {
+        sgpa: sgpaInput.value,
+        credits: creditsInput.value,
+      };
+    }
+    s++;
+  }
+
+  localStorage.setItem("cgpaCalcState", JSON.stringify(state));
+}
+
+// Attach listeners to all inputs for auto-saving
+function addAutoSaveListeners() {
+  const inputs = document.querySelectorAll("input, select");
+  inputs.forEach((input) => {
+    input.addEventListener("input", saveState);
+    input.addEventListener("change", saveState);
+  });
+}
+
+// Load saved state from LocalStorage
+function loadState() {
+  const savedState = localStorage.getItem("cgpaCalcState");
+  if (!savedState) return;
+
+  const state = JSON.parse(savedState);
+
+  // Restore CGPA inputs
+  if (state.cgpa) {
+    for (let s = 1; s <= 8; s++) {
+      if (state.cgpa[s]) {
+        const sgpaInput = document.getElementById("sgpa" + s);
+        const creditsInput = document.getElementById("credits" + s);
+        if (sgpaInput && creditsInput) {
+          sgpaInput.value = state.cgpa[s].sgpa || "";
+          creditsInput.value = state.cgpa[s].credits || "";
+        }
+      }
+    }
+  }
+
+  // Restore Sessional selection if exists
+  if (state.batch && state.branch && state.semester) {
+    const batchSelect = document.getElementById("batchSelect");
+    const branchSelect = document.getElementById("branchSelect");
+    const semesterSelect = document.getElementById("semesterSelect");
+
+    if (batchSelect && branchSelect && semesterSelect) {
+      batchSelect.value = state.batch;
+      branchSelect.value = state.branch;
+      semesterSelect.value = state.semester;
+
+      // Only auto-proceed if all values are valid
+      if (state.batch && state.branch && state.semester) {
+        // Wait for potential async ops or simply allow UI to update
+        setTimeout(() => {
+          proceedToCalculator();
+
+          // After creating cards, fill in the marks
+          setTimeout(() => {
+            if (state.marks) {
+              Object.keys(state.marks).forEach((subjectId) => {
+                const marks = state.marks[subjectId];
+                if (marks) {
+                  // Restore elective
+                  if (marks.elective) {
+                    const electiveSelect = document.getElementById(
+                      "s" + subjectId + "-elective"
+                    );
+                    if (electiveSelect) {
+                      electiveSelect.value = marks.elective;
+                    }
+                  }
+
+                  // Restore highest marks
+                  if (marks.highest) {
+                    const highestInput = document.getElementById(
+                      "s" + subjectId + "-highest"
+                    );
+                    if (highestInput) {
+                      highestInput.value = marks.highest;
+                    }
+                  }
+
+                  // Restore mark fields
+                  Object.keys(marks).forEach((key) => {
+                    if (key !== "elective" && key !== "highest") {
+                      const inputElement = document.getElementById(
+                        "s" + subjectId + "-" + key
+                      );
+                      if (inputElement) {
+                        inputElement.value = marks[key];
+                        // Trigger prediction update
+                        updatePrediction(parseInt(subjectId));
+                      }
+                    }
+                  });
+                }
+              });
+            }
+          }, 100);
+        }, 100);
+      }
+    }
+  }
+
+  // Add listeners to globally available CGPA inputs
+  addAutoSaveListeners();
 }
